@@ -1,5 +1,7 @@
 package app
 
+
+
 import (
 	"github.com/gofiber/fiber/v2"
 	"fiber-app/internal/modules/user"
@@ -10,3 +12,8 @@ func registerRoutes(app *fiber.App) {
 
 	user.Routes(api)
 }
+
+
+// remove this commented line 
+
+//a+b = c
