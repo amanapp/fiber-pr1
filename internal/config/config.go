@@ -7,6 +7,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
+
+
+
 type AppConfig struct {
 	Env       string
 	Port      string
@@ -40,3 +43,6 @@ func getEnv(key, def string) string {
 	}
 	return def
 }
+
+
+/// test thsi 
