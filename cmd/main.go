@@ -2,11 +2,10 @@ package main
 
 import (
 	"log"
-	_ "fiber-app/docs"   
+	_ "fiber-app/docs"
 
 	"fiber-app/internal/app"
 )
-
 
 // @title Fiber Production API
 // @version 1.0
@@ -25,14 +24,7 @@ import (
 // @in header
 // @name Authorization
 
-
-
-//fior exaple 
-
-
-frwnjhwfv
 func main() {
 	app := app.New()
-    log
 	log.Fatal(app.Listen(":3010"))
 }
