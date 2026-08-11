@@ -1,27 +1,28 @@
 package errors
 
 import (
-	"github.com/gofiber/fiber/v2"
+	stdErrors "errors"
 	"fiber-app/internal/config"
+	"github.com/gofiber/fiber/v2"
 )
 
 func Handler(c *fiber.Ctx, err error) error {
-
-	// Default status
 	code := fiber.StatusInternalServerError
-
-	if e, ok := err.(*fiber.Error); ok {
+	var e *fiber.Error
+	if stdErrors.As(err, &e) {
 		code = e.Code
 	}
 
-	// PROD MODE (safe)
 	if config.Config.Env == "production" {
+		message := "Something went wrong"
+		if e != nil {
+			message = e.Message
+		}
 		return c.Status(code).JSON(fiber.Map{
-			"message": eMessage(err),
+			"message": message,
 		})
 	}
 
-	// DEV MODE (safe debug)
 	response := fiber.Map{
 		"error":  err.Error(),
 		"path":   c.Path(),
@@ -30,17 +31,9 @@ func Handler(c *fiber.Ctx, err error) error {
 		"body":   string(c.Body()),
 	}
 
-	// SAFE PARAM ACCESS
 	if c.Route() != nil {
 		response["params"] = c.AllParams()
 	}
 
 	return c.Status(code).JSON(response)
-}
-
-func eMessage(err error) string {
-	if e, ok := err.(*fiber.Error); ok {
-		return e.Message
-	}
-	return "Something went wrong"
 }
