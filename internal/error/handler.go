@@ -37,7 +37,7 @@ func Handler(c *fiber.Ctx, err error) error {
 
 	return c.Status(code).JSON(response)
 }
-
+anman
 func eMessage(err error) string {
 	if e, ok := err.(*fiber.Error); ok {
 		return e.Message
